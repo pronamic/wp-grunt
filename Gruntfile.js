@@ -3,16 +3,6 @@ module.exports = function( grunt ) {
 	grunt.initConfig( {
 		pkg: grunt.file.readJSON( 'package.json' ),
 
-		dirs: {
-			'php': [
-				'**/*.php',
-				'!bower_components/**',
-				'!deploy/**',
-				'!node_modules/**',
-				'!wp-content/**'
-			]
-		}
-
 		// PHPLint
 		phplint: {
 			options: {
@@ -20,13 +10,25 @@ module.exports = function( grunt ) {
 					'-lf': null
 				}
 			},
-			all: dirs.php
+			all: [
+				'**/*.php',
+				'!bower_components/**',
+				'!deploy/**',
+				'!node_modules/**',
+				'!wp-content/**'
+			]
 		},
 
 		// PHP Code Sniffer
 		phpcs: {
 			application: {
-				src: dirs.php
+				src: [
+					'**/*.php',
+					'!bower_components/**',
+					'!deploy/**',
+					'!node_modules/**',
+					'!wp-content/**'
+				]
 			},
 			options: {
 				standard: 'phpcs.ruleset.xml'
@@ -56,7 +58,7 @@ module.exports = function( grunt ) {
 		checkwpversion: {
 			options: {
 				readme: 'readme.txt',
-				plugin: 'eisma-companies.php',
+				plugin: '<%= pkg.config.plugin %>',
 			},
 			check: {
 				version1: 'plugin',
@@ -76,7 +78,7 @@ module.exports = function( grunt ) {
 				options: {
 					cwd: '',
 					domainPath: 'languages',
-					type: pkg.config.type,
+					type: '<%= pkg.config.type %>',
 					exclude: [ 'deploy/.*', 'wp-content/.*' ],
 				}
 			}
@@ -85,7 +87,7 @@ module.exports = function( grunt ) {
 		// Check textdomain errors
 		checktextdomain: {
 			options:{
-				text_domain: pkg.config.text_domain,
+				text_domain: '<%= pkg.config.text_domain %>',
 				keywords: [
 					'__:1,2d',
 					'_e:1,2d',
@@ -104,7 +106,13 @@ module.exports = function( grunt ) {
 				]
 			},
 			files: {
-				src: dirs.php,
+				src: [
+					'**/*.php',
+					'!bower_components/**',
+					'!deploy/**',
+					'!node_modules/**',
+					'!wp-content/**'
+				],
 				expand: true
 			}
 		},

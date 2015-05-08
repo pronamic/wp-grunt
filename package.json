@@ -4,7 +4,8 @@
   "description": "Grunt tasks for WordPress themes and plugins developed by Pronamic.",
   "config": {
     "type": "wp-plugin",
-    "text_domain": "text_domain"
+    "text_domain": "text_domain",
+    "plugin": "plugin.php"
   },
   "repository": {
     "type": "git",
